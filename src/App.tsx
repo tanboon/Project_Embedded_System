@@ -2,15 +2,16 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { Typography } from "@mui/material";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Home } from "./pages/home/page";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1 className="text-lg text-green-500">Test TailwindCSS</h1>
-        <Typography>Test</Typography>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
