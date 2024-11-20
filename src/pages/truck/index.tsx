@@ -4,6 +4,7 @@ import { StatusCard } from "../../components/StatusCard";
 import { Navigation, Truck } from "lucide-react";
 import { LocationMap } from "../../components/LocationMap";
 import { TruckData } from "../../types/truck";
+import { DriverStatus } from "../../components/DriverStatus";
 
 const trucks: TruckData[] = [
   {
@@ -63,7 +64,7 @@ export const TruckIndex = () => {
           </button>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="col-span-1">
+          <div className="col-span-1 space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <StatusCard
                 className="col-span-1"
@@ -77,6 +78,9 @@ export const TruckIndex = () => {
                 value="Active"
                 icon={<Truck />}
               />
+            </div>
+            <div className="grid grid-cols-1 gap-4">
+              <DriverStatus />
             </div>
           </div>
           <div className="col-span-1">
