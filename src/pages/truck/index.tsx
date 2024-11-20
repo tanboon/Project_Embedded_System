@@ -5,6 +5,7 @@ import { Navigation, Truck } from "lucide-react";
 import { LocationMap } from "../../components/LocationMap";
 import { TruckData } from "../../types/truck";
 import { DriverStatus } from "../../components/DriverStatus";
+import { FuelStatus } from "../../components/FuelStatus";
 
 const trucks: TruckData[] = [
   {
@@ -81,6 +82,7 @@ export const TruckIndex = () => {
             </div>
             <div className="grid grid-cols-1 gap-4">
               <DriverStatus />
+              <FuelStatus />
             </div>
           </div>
           <div className="col-span-1">
