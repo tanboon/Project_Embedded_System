@@ -57,7 +57,7 @@ export const Home = () => {
   );
 
   const handleTruckClick = (truckId: string) => {
-    navigate(`/${truckId}`);
+    navigate(`/truck/${truckId}`);
   };
 
   return (

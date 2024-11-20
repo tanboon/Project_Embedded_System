@@ -16,7 +16,7 @@ export const Card = React.forwardRef<
 interface TruckCardProps {
   truck: TruckData;
   selectedTruck: TruckData | null;
-  onTruckSelect: (truck: TruckData) => void;
+  onTruckSelect: (truck: TruckData | null) => void;
   onTruckClick: (truckId: string) => void;
 }
 
@@ -47,6 +47,8 @@ export const TruckCard = ({
         onTruckSelect(truck);
         onTruckClick(truck.id);
       }}
+      onMouseEnter={() => onTruckSelect(truck)}
+      onMouseLeave={() => onTruckSelect(null)}
     >
       <div className="flex items-center gap-4">
         <div className="p-2 text-primary">

@@ -5,7 +5,7 @@ import { TruckCard } from "./UI/card";
 interface TruckListProps {
   trucks: TruckData[];
   selectedTruck: TruckData | null;
-  onTruckSelect: (truck: TruckData) => void;
+  onTruckSelect: (truck: TruckData | null) => void;
   onTruckClick: (truckId: string) => void;
 }
 

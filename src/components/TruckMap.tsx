@@ -1,7 +1,8 @@
-import { MapPin } from "lucide-react";
-import React from "react";
 import { TruckData } from "../types/truck";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { Map, Marker, useApiIsLoaded } from "@vis.gl/react-google-maps";
+import { mapStyles } from "./UI/map";
+
+import { CircularProgress } from "@mui/material";
 
 interface TruckMapProps {
   trucks: TruckData[];
@@ -28,36 +29,52 @@ export const TruckMap = ({
     return { lat: latitude, lng: longtitude };
   };
 
+  const isLoaded = useApiIsLoaded();
+  if (!isLoaded) return <CircularProgress color="secondary" />;
+
   return (
-    <div className="relative h-full rounded-lg bg-muted flex items-center justify-center">
-      <LoadScript
-        googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""}
+    <div className="relative h-full  flex items-center justify-center">
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          borderRadius: "12px",
+          overflow: "hidden",
+        }}
       >
-        <GoogleMap
-          mapContainerStyle={{
-            width: "100%",
-            height: "100%",
-            borderRadius: "12px",
-          }}
-          zoom={10}
-          center={center()}
+        <Map
+          styles={mapStyles}
+          defaultZoom={10}
+          defaultCenter={center()}
+          disableDefaultUI={true}
         >
-          {trucks.map(
-            (truck, index) =>
-              truck.location.lat &&
-              truck.location.lng && (
-                <Marker
-                  key={truck.id || index}
-                  position={{
-                    lat: truck.location.lat,
-                    lng: truck.location.lng,
-                  }}
-                  title={truck.name || `Truck ${index + 1}`}
-                />
-              )
+          {selectedTruck != null ? (
+            <Marker
+              key={selectedTruck.id || 0}
+              position={selectedTruck.location}
+              icon={{
+                url: "https://maps.google.com/mapfiles/kml/shapes/truck.png",
+                scaledSize: new window.google.maps.Size(32, 32),
+                anchor: new window.google.maps.Point(16, 16),
+              }}
+              title={selectedTruck.name || `Truck 1`}
+            />
+          ) : (
+            trucks.map((truck, index) => (
+              <Marker
+                key={truck.id || index}
+                position={truck.location}
+                icon={{
+                  url: "https://maps.google.com/mapfiles/kml/shapes/truck.png",
+                  scaledSize: new window.google.maps.Size(32, 32),
+                  anchor: new window.google.maps.Point(16, 16),
+                }}
+                title={truck.name || `Truck ${index + 1}`}
+              />
+            ))
           )}
-        </GoogleMap>
-      </LoadScript>
+        </Map>
+      </div>
     </div>
   );
 };
