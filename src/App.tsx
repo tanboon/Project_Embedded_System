@@ -5,6 +5,7 @@ import { CircularProgress, Typography } from "@mui/material";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from "./pages/home/page";
 import { APIProvider } from "@vis.gl/react-google-maps";
+import { TruckIndex } from "./pages/truck";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/truck">
-            <Route path=":id" element={null} />
+            <Route path=":id" element={<TruckIndex />} />
           </Route>
         </Routes>
       </BrowserRouter>
