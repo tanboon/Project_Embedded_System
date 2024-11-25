@@ -10,3 +10,10 @@ export interface TruckData {
   driverName: string;
   fuelLevel: number;
 }
+
+export interface TruckEvent {
+  created_at: string;
+  entry_id: number;
+  field1: string;
+  field2: string;
+}

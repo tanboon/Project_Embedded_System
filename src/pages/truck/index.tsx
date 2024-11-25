@@ -1,11 +1,14 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { StatusCard } from "../../components/StatusCard";
-import { Navigation, Truck } from "lucide-react";
+import { Fuel, Gauge, Navigation, Truck } from "lucide-react";
 import { LocationMap } from "../../components/LocationMap";
 import { TruckData } from "../../types/truck";
 import { DriverStatus } from "../../components/DriverStatus";
-import { FuelStatus } from "../../components/FuelStatus";
+import { FuelStatus } from "../../components/FuelChart";
+import { Card } from "../../components/UI/card";
+import { Header } from "../../components/Header";
+import { Notification } from "../../components/Notification";
 
 const trucks: TruckData[] = [
   {
@@ -55,29 +58,23 @@ export const TruckIndex = () => {
   return (
     <div className="min-h-screen bg-background">
       <main className="container p-4 space-y-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Truck {id} Details</h1>
-          <button
-            className="font-medium text-sm border-2 border-input px-4 py-2 rounded-lg hover:bg-white hover:text-background transition-colors"
-            onClick={() => navigate("/")}
-          >
-            Back to Overview
-          </button>
-        </div>
+        <Header truck={selectedTruck[0]} />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="col-span-1 space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <StatusCard
                 className="col-span-1"
-                title="Distance"
-                value="234 km"
-                icon={<Navigation />}
+                title="Velocity"
+                value="234"
+                suffix="km/h"
+                icon={<Gauge />}
               />
               <StatusCard
                 className="col-span-1"
-                title="Status"
-                value="Active"
-                icon={<Truck />}
+                title={"Fuel"}
+                value="20%"
+                suffix="remaining"
+                icon={<Fuel />}
               />
             </div>
             <div className="grid grid-cols-1 gap-4">
@@ -85,8 +82,9 @@ export const TruckIndex = () => {
               <FuelStatus />
             </div>
           </div>
-          <div className="col-span-1">
+          <div className="col-span-1 space-y-6">
             <LocationMap truck={selectedTruck[0]} />
+            <Notification />
           </div>
         </div>
       </main>
