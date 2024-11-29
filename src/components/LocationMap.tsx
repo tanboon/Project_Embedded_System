@@ -29,7 +29,7 @@ export const LocationMap = ({ truck }: LocationMapProps) => {
           }}
         >
           <Map
-            styles={mapStyles}
+            mapId={"29ed03af9a529dac"}
             defaultZoom={15}
             defaultCenter={truck.location}
             disableDefaultUI={true}

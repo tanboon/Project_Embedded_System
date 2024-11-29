@@ -43,10 +43,10 @@ export const TruckMap = ({
         }}
       >
         <Map
-          styles={mapStyles}
           defaultZoom={10}
           defaultCenter={center()}
           disableDefaultUI={true}
+          mapId={"29ed03af9a529dac"}
         >
           {selectedTruck != null ? (
             <Marker
