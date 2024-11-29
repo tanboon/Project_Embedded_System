@@ -70,7 +70,7 @@ const getAlertCard = (event: TruckEvent) => {
 
 export const Notification = () => {
   return (
-    <Card className="glass-card p-6 text-left">
+    <Card className="glass-card p-6 text-left animate-fade-in">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <Bell className="text-primary" />

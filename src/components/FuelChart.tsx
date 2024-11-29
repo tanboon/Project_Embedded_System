@@ -40,7 +40,7 @@ export const FuelChart = ({ data }: FuelChartProps) => {
   }, [data]);
 
   return (
-    <Card className="p-6 glass-card">
+    <Card className="p-6 glass-card animate-fade-in">
       <h3 className="text-lg font-semibold mb-6 flex items-center gap-2">
         <Fuel className="text-primary" />
         Fuel Consumption

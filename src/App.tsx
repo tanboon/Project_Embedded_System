@@ -12,6 +12,7 @@ function App() {
     <APIProvider
       apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""}
       onLoad={() => <CircularProgress color="secondary" />}
+      onError={(error) => console.error("Google Maps failed to load", error)}
     >
       <BrowserRouter>
         <Routes>
