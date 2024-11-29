@@ -29,7 +29,7 @@ export const LocationMap = ({ truck }: LocationMapProps) => {
           }}
         >
           <Map
-            mapId={"29ed03af9a529dac"}
+            key={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
             defaultZoom={15}
             defaultCenter={truck.location}
             disableDefaultUI={true}
