@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-interface EventEntry {
+export interface EventEntry {
   created_at: string;
   entry_id: number;
   field1: string; // TruckID
@@ -20,14 +20,14 @@ interface EventChannel {
   last_entry_id: number;
 }
 
-interface EventsResponse {
+export interface EventsResponse {
   channel: EventChannel;
   feeds: EventEntry[];
 }
 
 const fetchEvents = async (): Promise<EventsResponse> => {
   const { data } = await axios.get(
-    "https://api.thingspeak.com/channels/2753402/feeds.json?results=10"
+    "https://api.thingspeak.com/channels/2753402/feeds.json?results=20"
   );
   return data;
 };
@@ -36,8 +36,10 @@ export const useEvents = () => {
   return useQuery<EventsResponse, Error>({
     queryKey: ["events"],
     queryFn: fetchEvents,
-    refetchInterval: 10000000,
-    refetchIntervalInBackground: true,
+    refetchInterval: 5 * 60 * 1000,
+    refetchIntervalInBackground: false,
+    staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
+    retry: 1,
   });
 };

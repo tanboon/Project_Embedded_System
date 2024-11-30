@@ -33,7 +33,7 @@ export const FuelChart = ({ data }: FuelChartProps) => {
       .filter((value) => dayjs(value.created_at).isSame(latest_day, "day"))
       .map((value) => ({
         time: dayjs(value.created_at).format("HH:mm:ss"),
-        level: parseInt(value.field1),
+        fuel: parseInt(value.field1),
       }));
 
     setFuelData(processedData);
@@ -54,7 +54,7 @@ export const FuelChart = ({ data }: FuelChartProps) => {
               stroke="#9CA3AF"
               tick={{ fill: "#9CA3AF" }}
               label={{
-                value: "Fuel Level (%)",
+                value: "Fuel (ml)",
                 angle: -90,
                 position: "insideLeft",
                 fill: "#9CA3AF",
@@ -72,7 +72,7 @@ export const FuelChart = ({ data }: FuelChartProps) => {
             />
             <Line
               type="monotone"
-              dataKey="level"
+              dataKey="fuel"
               stroke="#8b5cf6"
               strokeWidth={2}
               dot={{ fill: "#8b5cf6" }}

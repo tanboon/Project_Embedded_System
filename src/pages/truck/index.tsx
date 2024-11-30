@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { StatusCard } from "../../components/StatusCard";
 import { Droplet, Gauge } from "lucide-react";
@@ -9,8 +9,8 @@ import { Header } from "../../components/Header";
 import { Notification } from "../../components/Notification";
 import { useFuel } from "../../hooks/useFuel";
 import { useLocation } from "../../hooks/useLocation";
-import { useGetLocation } from "../../hooks/useGetLocation";
 import { CircularProgress } from "@mui/material";
+import { useEvents } from "../../hooks/useEvents";
 
 const trucks: TruckData[] = [
   {
@@ -70,7 +70,7 @@ export const TruckIndex = () => {
       break;
   }
 
-  const selectedTruck = trucks.filter((truck) => truck.id == id);
+  const selectedTruck = trucks.filter((truck) => truck.id === id);
   const { data: locationData, isLoading } = useLocation(index);
   useEffect(() => {
     if (locationData && !isLoading) {
@@ -84,12 +84,12 @@ export const TruckIndex = () => {
       // };
       // FetchAddress();
     }
-  }, [locationData]);
+  }, [locationData, isLoading, selectedTruck]);
 
   const { data: fuelData } = useFuel(index);
-  // const { data: eventData } = useEvents();
+  const { data: eventData } = useEvents();
 
-  if (!fuelData || !locationData) {
+  if (!fuelData || !locationData || !eventData) {
     return <CircularProgress />;
   }
   const fuelRatio =
@@ -123,7 +123,7 @@ export const TruckIndex = () => {
           </div>
           <div className="col-span-1 space-y-6">
             <LocationMap truck={selectedTruck[0]} />
-            <Notification />
+            <Notification events={eventData} />
           </div>
         </div>
       </main>
