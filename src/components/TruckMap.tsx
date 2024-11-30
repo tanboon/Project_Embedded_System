@@ -43,10 +43,10 @@ export const TruckMap = ({
         }}
       >
         <Map
+          styles={mapStyles}
           defaultZoom={10}
           defaultCenter={center()}
           disableDefaultUI={true}
-          key={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
         >
           {selectedTruck != null ? (
             <Marker

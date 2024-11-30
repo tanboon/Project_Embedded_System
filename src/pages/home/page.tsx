@@ -90,12 +90,12 @@ export const Home = () => {
         updatedTrucks[2].location.lat = data.V7;
         updatedTrucks[2].location.lng = data.V8;
 
-        const trucksWithAddresses = await fetchTruckAddresses(
-          updatedTrucks,
-          useGetLocation
-        );
+        // const trucksWithAddresses = await fetchTruckAddresses(
+        //   updatedTrucks,
+        //   useGetLocation
+        // );
 
-        setTrucks(trucksWithAddresses);
+        // setTrucks(trucksWithAddresses);
       };
 
       updateTrucksWithLocation();

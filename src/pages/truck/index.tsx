@@ -76,13 +76,13 @@ export const TruckIndex = () => {
     if (locationData && !isLoading) {
       selectedTruck[0].location.lat = locationData.V1;
       selectedTruck[0].location.lng = locationData.V2;
-      const FetchAddress = async () => {
-        const result = await useGetLocation(locationData.V1, locationData.V2);
-        if (result)
-          selectedTruck[0].location.address =
-            result.results[11].formatted_address || "";
-      };
-      FetchAddress();
+      // const FetchAddress = async () => {
+      //   const result = await useGetLocation(locationData.V1, locationData.V2);
+      //   if (result)
+      //     selectedTruck[0].location.address =
+      //       result.results[11].formatted_address || "";
+      // };
+      // FetchAddress();
     }
   }, [locationData]);
 
