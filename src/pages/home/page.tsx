@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { SearchBar } from "../../components/Search";
 import { TruckMap } from "../../components/TruckMap";
 import { TruckList } from "../../components/TruckList";
@@ -6,32 +6,6 @@ import { TruckData } from "../../types/truck";
 import { useNavigate } from "react-router-dom";
 import { Card } from "../../components/UI/card";
 import { useLocations } from "../../hooks/useLocations";
-import { useGetLocation } from "../../hooks/useGetLocation";
-
-const fetchTruckAddresses = async (
-  trucks: TruckData[],
-  useGetLocation: any
-) => {
-  const updatedTrucks = [...trucks];
-
-  const addressPromises = updatedTrucks.map(async (truck) => {
-    // try {
-    //   const result = await useGetLocation(
-    //     truck.location.lat,
-    //     truck.location.lng
-    //   );
-    //   if (result && result.results && result.results[11]) {
-    //     truck.location.address = result.results[11].formatted_address || "";
-    //   }
-    // } catch (error) {
-    //   console.error(`Error fetching address for truck ${truck.id}:`, error);
-    // }
-  });
-
-  await Promise.all(addressPromises);
-
-  return updatedTrucks;
-};
 
 export const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -78,29 +52,41 @@ export const Home = () => {
   const navigate = useNavigate();
   const { data, isLoading } = useLocations();
 
-  useEffect(() => {
+  const updateTrucksWithLocation = useCallback(async () => {
     if (data && !isLoading) {
-      const updateTrucksWithLocation = async () => {
-        const updatedTrucks = [...trucks];
+      try {
+        const updatedTrucks = [...trucks].map((truck, index) => {
+          switch (index) {
+            case 0:
+              return {
+                ...truck,
+                location: { ...truck.location, lat: data.V1, lng: data.V2 },
+              };
+            case 1:
+              return {
+                ...truck,
+                location: { ...truck.location, lat: data.V4, lng: data.V5 },
+              };
+            case 2:
+              return {
+                ...truck,
+                location: { ...truck.location, lat: data.V7, lng: data.V8 },
+              };
+            default:
+              return truck;
+          }
+        });
 
-        updatedTrucks[0].location.lat = data.V1;
-        updatedTrucks[0].location.lng = data.V2;
-        updatedTrucks[1].location.lat = data.V4;
-        updatedTrucks[1].location.lng = data.V5;
-        updatedTrucks[2].location.lat = data.V7;
-        updatedTrucks[2].location.lng = data.V8;
-
-        const trucksWithAddresses = await fetchTruckAddresses(
-          updatedTrucks,
-          useGetLocation
-        );
-
-        setTrucks(trucksWithAddresses);
-      };
-
-      updateTrucksWithLocation();
+        setTrucks(updatedTrucks);
+      } catch (error) {
+        console.error("Error updating truck locations:", error);
+      }
     }
-  }, [data, isLoading, trucks]);
+  }, [data, isLoading]);
+
+  useEffect(() => {
+    updateTrucksWithLocation();
+  }, [updateTrucksWithLocation]);
 
   const filteredTrucks = trucks.filter(
     (truck) =>
