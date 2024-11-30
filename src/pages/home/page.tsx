@@ -15,17 +15,17 @@ const fetchTruckAddresses = async (
   const updatedTrucks = [...trucks];
 
   const addressPromises = updatedTrucks.map(async (truck) => {
-    try {
-      const result = await useGetLocation(
-        truck.location.lat,
-        truck.location.lng
-      );
-      if (result && result.results && result.results[11]) {
-        truck.location.address = result.results[11].formatted_address || "";
-      }
-    } catch (error) {
-      console.error(`Error fetching address for truck ${truck.id}:`, error);
-    }
+    // try {
+    //   const result = await useGetLocation(
+    //     truck.location.lat,
+    //     truck.location.lng
+    //   );
+    //   if (result && result.results && result.results[11]) {
+    //     truck.location.address = result.results[11].formatted_address || "";
+    //   }
+    // } catch (error) {
+    //   console.error(`Error fetching address for truck ${truck.id}:`, error);
+    // }
   });
 
   await Promise.all(addressPromises);
@@ -90,12 +90,12 @@ export const Home = () => {
         updatedTrucks[2].location.lat = data.V7;
         updatedTrucks[2].location.lng = data.V8;
 
-        // const trucksWithAddresses = await fetchTruckAddresses(
-        //   updatedTrucks,
-        //   useGetLocation
-        // );
+        const trucksWithAddresses = await fetchTruckAddresses(
+          updatedTrucks,
+          useGetLocation
+        );
 
-        // setTrucks(trucksWithAddresses);
+        setTrucks(trucksWithAddresses);
       };
 
       updateTrucksWithLocation();

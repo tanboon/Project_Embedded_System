@@ -115,7 +115,7 @@ export const TruckIndex = () => {
               <StatusCard
                 className="col-span-1"
                 title={"Fuel"}
-                value={`${fuelRatio}%`}
+                value={`${fuelRatio.toPrecision(3)}%`}
                 suffix="remaining"
                 icon={<Droplet />}
               />
